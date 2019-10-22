@@ -1,0 +1,122 @@
+{%extends "material/base.html"%}
+{%block content%}
+<div class="showcase container purple lighten-3">
+    <div class="row">
+    <div class="col 12 m10 offset-ml center">
+        <h2>Credit Score Predictor</h2>
+        <p>ML WEB APP</p>
+        <a href="{{url_for('index')}}"class="btn btn-small purple white-text waves-effect waves-dark">Reset</a>
+        <a href="{{url_for('preview')}}"class="btn btn-small white purple-text waves-effect waves-dark">View Dataset</a>
+
+
+    </div>
+    </div>
+    </div>
+    <section class="section section-signup">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card panel grey lighten-4 grey-text text-darken-4 z-depth=0">
+
+            <form method="POST" action="{{url_for('analyze')}}">
+                <div class="input-field">
+                    <p class="range-field"></p>
+                    <input type="range" min="0" max="1000" step="1" value="0"name="CRBScore">
+                    <label>CRBScore</label>
+                </div>
+                <div class="input-field">
+                        <p class="range-field"></p>
+                        <input type="range" min="0" max="100" step="1" value="0"name="Age">
+                        <label>Age</label>
+                    </div>
+                    <div class="input-field">
+                            <p class="range-field"></p>
+                            <input type="range" min="0" max="100000" step="0.1" value="0"name="Amount">
+                            <label>Amount</label>
+                        </div>
+                        <div class="input-field">
+                                <p class="range-field"></p>
+                                <input type="range" min="0" max="200" step="1" value="0"name="MonthsSinceOpen">
+                                <label>MonthsSinceOpen</label>
+                            </div>
+                            <div class="input-field">
+                                    <p class="range-field"></p>
+                                    <input type="range" min="0" max="200000" step="1" value="0"name="FinancialMeasure1">
+                                    <label>FinancialMeasure1</label>
+                                </div>
+                                <div class="input-field">
+                                        <p class="range-field"></p>
+                                        <input type="range" min="0" max="200000" step="0.1" value="0"name="FinancialMeasure2">
+                                        <label>FinancialMeasure2</label>
+                                    </div>
+                                    <div class="input-field">
+                                            <p class="range-field"></p>
+                                            <input type="range" min="0" max="200000" step="0.1" value="0"name="FinancialMeasure4">
+                                            <label>FinancialMeasure4</label>
+                                        </div>
+                                        <div class="input-field">
+                                                <p class="range-field"></p>
+                                                <input type="range" min="0" max="4" step="1" value="0"name="CustomerType">
+                                                <label>CustomerType</label>
+                                            </div>
+                                            <div class="input-field">
+                                                    <p class="range-field"></p>
+                                                    <input type="range" min="0" max="5" step="1" value="0"name="SOR">
+                                                    <label>SOR</label>
+                                                </div>
+                                  <div class="input-field"> 
+                                      <select id="role" name="model_choice">
+                                          <option value="" disabled selected>Select Model</option>
+                                          <option value="LogisticRegression_model">Logistic regresssion</option>
+                                          <option value="RandomForest_model">Random Forest</option>
+                                          <option value="DecisionTree_model">Decision Tree</option>
+                                          <option value="XGBoost_model">XGBoost</option>
+                                      </select>
+                                      <label for="role">Select ML  algorithm</label>
+                                    </div> 
+                <input type="submit" value="Predict" class="btn btn-small waves-effect waves-dark">
+                <input type="reset" value="Clear" class="btn btn-small waves-effect waves-dark">
+            </form>
+            </div>
+            </div>
+            <div class="col s12 m4 offers">
+                    <div class="card panel purple lighten-4 grey-text text-darken-4 z-depth=0">
+                  <p>CRBScore:{{CRBScore}}</p>
+                  <p>Age:{{Age}}</p>
+                  <p>Amount:{{Amount}}</p>
+                  <p>MonthsSinceOpen:{{MonthsSinceOpen}}</p>
+                  <p>FinancialMeasure1:{{FinancialMeasure1}}</p>
+                  <p>FinancialMeasure2:{{FinancialMeasure2}}</p>
+                  <p>FinancialMeasure4:{{FinancialMeasure4}}</p>
+                 <p>CustomerType: {{CustomerType}}</p>
+                  <p>SOR:{{SOR}}</p>
+                  using {{model_selected}} on {{clean_data}}
+                </div>
+                </div>
+
+                <div class="col s12 m4 offers">
+                        <h5>Prediction</h5>
+                            <div class="collection" role="alert">
+                                <p class ="collection item active purple">Predicted result{{result_prediction}}</p>
+                                </div>
+                                </div>
+                    
+            </div>
+           
+        </div>
+        
+    </section>
+
+{%endblock%}
+{%block scripts%}
+{{ super()}}
+<script
+  src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+<script
+  src=https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js></script>
+  <script>
+      $(document).ready(function(){
+          $('select').formSelect();
+      });
+  </script>
+{%endblock%}
